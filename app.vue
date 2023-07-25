@@ -16,4 +16,7 @@ useSeoMeta({
 <style lang="scss">
 @import './assets/styles/base.scss';
 @import './assets/styles/iconfont.scss';
+:root {
+  --van-primary-color: #fb7299 !important;
+}
 </style>
