@@ -17,7 +17,7 @@ const { data: hotList } = await useFetch('/api/hot')
   </van-sticky>
   <!-- 视频列表 -->
   <div class="video-list">
-    <AppVideo v-for="item in hotList" :key="item.aid" />
+    <AppVideo v-for="item in hotList" :key="item.aid" :item="item" />
   </div>
 </template>
 

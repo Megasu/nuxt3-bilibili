@@ -1,25 +1,34 @@
 <script setup lang="ts">
-//
+import { VideoItem } from 'types/video'
+
+defineProps<{
+  item: VideoItem
+}>()
+
+const parseView = (view: number) => {
+  if (view === 0) return '--'
+  return view > 10000 ? `${(view / 10000).toFixed(1)}万` : view
+}
 </script>
 
 <template>
-  <NuxtLink class="v-card" :to="`/video/0`">
+  <NuxtLink class="v-card" :to="`/video/${item.bvid}`">
     <div class="card">
       <div class="card-img">
-        <img class="pic" src="@/assets/images/loading.png" alt="视频描述" />
+        <img class="pic" :src="item.pic" :alt="item.title" />
       </div>
       <div class="count">
         <span>
           <i class="iconfont icon_shipin_bofangshu"></i>
-          41.4万
+          {{ parseView(item.stat.view) }}
         </span>
         <span>
           <i class="iconfont icon_shipin_danmushu"></i>
-          1314
+          {{ parseView(item.stat.danmaku) }}
         </span>
       </div>
     </div>
-    <p class="title">当你觉得扛不住的时候来看看这段视频</p>
+    <p class="title">{{ item.title }}</p>
   </NuxtLink>
 </template>
 
