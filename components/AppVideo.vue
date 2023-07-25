@@ -38,7 +38,7 @@ const parseView = (view: number) => {
   padding: 2vw 1vw;
   .card {
     position: relative;
-    background: #f3f3f3 url(~@/assets/images/default.png) center no-repeat;
+    background: #f3f3f3 url(@/assets/images/default.png) center no-repeat;
     background-size: 36%;
     border-radius: 0.53333vw;
     overflow: hidden;
