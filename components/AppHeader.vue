@@ -43,8 +43,8 @@
   .face {
     padding: 0 15px;
     img {
-      width: 15px;
-      height: 15px;
+      width: 24px;
+      height: 24px;
     }
   }
   .down-app {
