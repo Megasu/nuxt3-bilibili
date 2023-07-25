@@ -48,7 +48,7 @@ useSeoMeta({
         @play="onPlay"
         @pause="onPause"
         :poster="detail?.pic"
-        src="https://cn-sxxa-cu-02-03.bilivideo.com/upgcxcode/76/15/1208811576/1208811576-1-16.mp4?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&uipk=5&nbs=1&deadline=1690274881&gen=playurlv2&os=bcache&oi=1928469037&trid=00006743db0626084b48b458cf83d282bca1h&mid=0&platform=html5&upsig=742e2554cac6b8783d3657d9b3571a70&uparams=e,uipk,nbs,deadline,gen,os,oi,trid,mid,platform&cdnid=86606&bvc=vod&nettype=0&bw=51178&logo=80000000"
+        src="https://cn-sxxa-cu-02-02.bilivideo.com/upgcxcode/76/15/1208811576/1208811576-1-16.mp4?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&uipk=5&nbs=1&deadline=1690288095&gen=playurlv2&os=bcache&oi=1928469037&trid=00003e71024043e849dc8ebaea65c5551be1h&mid=346944746&platform=html5&upsig=5bbfae54352c1a427a7ef41eb8af23a2&uparams=e,uipk,nbs,deadline,gen,os,oi,trid,mid,platform&cdnid=86604&bvc=vod&nettype=0&bw=51178&logo=80000000"
       ></video>
     </van-barrage>
   </VanSticky>
