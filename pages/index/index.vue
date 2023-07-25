@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { VideoItem } from 'types/video'
+import type { VideoItem } from 'types/video'
 
 // 获取频道列表
 const { data: channelList } = await useFetch('/api/channel')
