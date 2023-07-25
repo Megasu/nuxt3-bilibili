@@ -35,12 +35,12 @@ const parseView = (view: number) => {
 <style lang="scss" scoped>
 .v-card {
   width: 50%;
-  padding: 2vw 1vw;
+  padding: 0 5px 10px;
   .card {
     position: relative;
     background: #f3f3f3 url(@/assets/images/default.png) center no-repeat;
     background-size: 36%;
-    border-radius: 0.53333vw;
+    border-radius: 5px;
     overflow: hidden;
     .card-img {
       .pic {
@@ -56,21 +56,21 @@ const parseView = (view: number) => {
       bottom: 0;
       left: 0;
       right: 0;
-      font-size: 3vw;
+      font-size: 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.2vw 1.5vw;
+      padding: 5px 6px;
       span {
         .iconfont {
-          font-size: 3vw;
+          font-size: 12px;
         }
       }
     }
   }
   .title {
-    margin-top: 1.5vw;
-    font-size: 3.2vw;
+    margin-top: 5px;
+    font-size: 12px;
     color: #212121;
     overflow: hidden;
     text-overflow: ellipsis;
