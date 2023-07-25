@@ -58,7 +58,7 @@ onLoad()
   </van-list>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .video-list {
   display: flex;
   flex-wrap: wrap;
