@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // 获取频道列表
 const { data: channelList } = await useFetch('/api/channel')
+const { data: hotList } = await useFetch('/api/hot')
 </script>
 
 <template>
