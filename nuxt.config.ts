@@ -1,4 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  devtools: { enabled: true }
+  // 应用模块
+  modules: ['@vant/nuxt'],
+  // 调试工具
+  devtools: { enabled: true },
 })
