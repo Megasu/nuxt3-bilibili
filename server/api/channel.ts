@@ -1,0 +1,28 @@
+export default defineEventHandler((event) => {
+  return [
+    { id: 1, name: '首页', icon: 'home' },
+    { id: 2, name: '动画', icon: 'animation' },
+    { id: 3, name: '番剧', icon: 'bangumi' },
+    { id: 4, name: '国创', icon: 'guochuang' },
+    { id: 5, name: '音乐', icon: 'music' },
+    { id: 6, name: '舞蹈', icon: 'dance' },
+    { id: 7, name: '游戏', icon: 'game' },
+    { id: 8, name: '知识', icon: 'knowledge' },
+    { id: 9, name: '科技', icon: 'technology' },
+    { id: 10, name: '运动', icon: 'sport' },
+    { id: 11, name: '汽车', icon: 'car' },
+    { id: 12, name: '生活', icon: 'life' },
+    { id: 13, name: '美食', icon: 'food' },
+    { id: 14, name: '动物圈', icon: 'animal' },
+    { id: 15, name: '鬼畜', icon: 'ghost' },
+    { id: 16, name: '时尚', icon: 'fashion' },
+    { id: 17, name: '娱乐', icon: 'entertainment' },
+    { id: 18, name: '影视', icon: 'film' },
+    { id: 19, name: '纪录片', icon: 'documentary' },
+    { id: 20, name: '电影', icon: 'movie' },
+    { id: 21, name: '电视剧', icon: 'tv' },
+    { id: 22, name: '直播', icon: 'live' },
+    { id: 23, name: '相簿', icon: 'album' },
+    { id: 24, name: '课堂', icon: 'classroom' },
+  ]
+})

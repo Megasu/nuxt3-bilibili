@@ -1,5 +1,6 @@
 <script setup lang="ts">
-//
+// 获取频道列表
+const { data: channelList } = await useFetch('/api/channel')
 </script>
 
 <template>
@@ -20,12 +21,11 @@
     <!-- 下载按钮 -->
     <div class="down-app">下载 APP</div>
   </header>
-  <!-- 频道选项 -->
+  <!-- 频道 -->
   <van-tabs>
-    <van-tab title="标签 1">内容 1</van-tab>
-    <van-tab title="标签 2">内容 2</van-tab>
-    <van-tab title="标签 3">内容 3</van-tab>
-    <van-tab title="标签 4">内容 4</van-tab>
+    <van-tab v-for="item in channelList" :key="item.id" :title="item.name">
+      {{ item.name }}
+    </van-tab>
   </van-tabs>
 </template>
 
