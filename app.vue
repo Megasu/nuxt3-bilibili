@@ -12,7 +12,9 @@ useSeoMeta({
 
 <template>
   <!-- Nuxt 页面容器，相当于 Vue 的 router-view -->
-  <NuxtPage />
+  <NuxtPage :keepalive="{ max: 10 }" />
+  <!-- 返回顶部 -->
+  <van-back-top :right="10" />
 </template>
 
 <style lang="scss">
@@ -20,5 +22,7 @@ useSeoMeta({
 @import './assets/styles/iconfont.scss';
 :root {
   --van-primary-color: #fb7299 !important;
+  --van-back-top-background: #fbfbfb !important;
+  --van-back-top-text-color: #666 !important;
 }
 </style>
