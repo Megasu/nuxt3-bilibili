@@ -4,11 +4,6 @@ import type { VideoItem } from 'types/video'
 defineProps<{
   item: VideoItem
 }>()
-
-const parseView = (view: number) => {
-  if (view === 0) return '--'
-  return view > 10000 ? `${(view / 10000).toFixed(1)}万` : view
-}
 </script>
 
 <template>
