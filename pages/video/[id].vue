@@ -76,6 +76,7 @@ useSeoMeta({
   width: 100vw;
   height: auto;
   object-fit: contain;
+  background-color: #fff;
 }
 
 .info {
