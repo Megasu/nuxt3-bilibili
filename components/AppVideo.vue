@@ -40,7 +40,7 @@ const parseView = (view: number) => {
     position: relative;
     background: #f3f3f3 url(@/assets/images/default.png) center no-repeat;
     background-size: 36%;
-    border-radius: 5px;
+    border-radius: 2px;
     overflow: hidden;
     .card-img {
       .pic {

@@ -37,7 +37,7 @@ onLoad()
 
 <template>
   <!-- Sticky 粘性布局 -->
-  <van-sticky>
+  <van-sticky class="sticky">
     <!-- 公共头部 -->
     <AppHeader />
     <!-- 频道 -->
@@ -59,8 +59,12 @@ onLoad()
 </template>
 
 <style lang="scss" scoped>
+.sticky {
+  background-color: #fff;
+}
 .video-list {
   display: flex;
   flex-wrap: wrap;
+  padding: 10px 5px;
 }
 </style>
