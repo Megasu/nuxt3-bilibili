@@ -35,7 +35,7 @@ useSeoMeta({
 
 <template>
   <!-- Sticky 粘性布局 -->
-  <VanSticky>
+  <van-sticky>
     <!-- 头部 -->
     <AppHeader />
     <!-- 弹幕 -->
@@ -48,10 +48,10 @@ useSeoMeta({
         @play="onPlay"
         @pause="onPause"
         :poster="detail?.pic"
-        src="https://cn-sxxa-cu-02-02.bilivideo.com/upgcxcode/76/15/1208811576/1208811576-1-16.mp4?e=ig8euxZM2rNcNbRVhwdVhwdlhWdVhwdVhoNvNC8BqJIzNbfq9rVEuxTEnE8L5F6VnEsSTx0vkX8fqJeYTj_lta53NCM=&uipk=5&nbs=1&deadline=1690288095&gen=playurlv2&os=bcache&oi=1928469037&trid=00003e71024043e849dc8ebaea65c5551be1h&mid=346944746&platform=html5&upsig=5bbfae54352c1a427a7ef41eb8af23a2&uparams=e,uipk,nbs,deadline,gen,os,oi,trid,mid,platform&cdnid=86604&bvc=vod&nettype=0&bw=51178&logo=80000000"
+        src="https://video.pearvideo.com/mp4/third/20230706/cont-1784445-12033417-151259-hd.mp4"
       ></video>
     </van-barrage>
-  </VanSticky>
+  </van-sticky>
   <!-- 标题作者信息 -->
   <div class="info">
     <h1 class="title-text">{{ detail?.title }}</h1>
@@ -75,6 +75,7 @@ useSeoMeta({
 .video-play {
   width: 100vw;
   height: auto;
+  object-fit: contain;
 }
 
 .info {
