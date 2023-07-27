@@ -4,32 +4,52 @@
 
 Nuxt 框架提供了一种基于 Node.js 的**服务端渲染方案 SSR（Server Side Rendering）**，可以让 Vue 应用在服务器端进行渲染，从而提高页面的加载速度和 SEO。
 
-Nuxt.js 服务器渲染的工作原理，包括：
+## 项目预览
 
-- 服务端渲染：Nuxt.js 在服务器端执行 Vue 组件的渲染过程，并生成初始 HTML。
-- 客户端激活：一旦初始 HTML 被发送到浏览器，Vue.js 会接管页面，并在客户端激活成一个交互式应用程序。
+### 在线预览
 
-在使用 Nuxt3 进行开发时，需要注意以下基本概念：
+https://bilibili.megasu.top/
+
+https://nuxt3-bilibili.vercel.app/ (备用)
+
+### 扫码预览
+
+![扫码预览 Nuxt 版哔哩哔哩](./README/qrcode.png)
+
+### 项目截图
+
+![项目预览](./README/preview.png)
+
+### 直播收获
+
+**完成带数据交互的 哔哩哔哩移动端 项目**，包括以下知识点的实战应用。
 
 - SEO 优化
-- 基于文件的路由
+- 基于文件的路由系统
 - 自动导入
-- 组件
-- 服务器
+- Nuxt DevTools 调试工具
+- 自定义组件
+- @vant/nuxt  组件库
+- 移动端 vw 适配
+- 接口服务器
 - 数据获取
+- 分页加载
+- 动态路由传参
+- 项目打包上线
 
 ## 演示环境
 
-- **电脑** - Windows 10
+- **电脑系统** - Windows 10
+- **开发工具** - VS Code (需按照 Volar 扩展插件)
 - **Node.js** - v16.15.0
 - **Npm** - 9.4.0
 - **Nuxt** - 3.6.5
 
-## 初始化项目
+## 创建 Nuxt3 项目
 
-[Nuxt3 官网](https://nuxt.com/)
+[Nuxt 官网](https://nuxt.com/) https://nuxt.com/
 
-### 下载命令
+### 初始化命令
 
 ```sh
 npx nuxi init <project-name>
@@ -39,7 +59,7 @@ npx nuxi init <project-name>
 
 **下载问题**
 
-由于大陆访问受限，所以下载可能会失败。
+由于国内访问受限，通过命令行下载可能会失败。
 
 解决方案参考：**修改 host 文件**
 
@@ -53,8 +73,6 @@ C:\Windows\System32\drivers\etc
 ```
 
 映射关系为访问 `raw.githubusercontent.com` 映射到 IP 地址 `185.199.108.133`。
-
-注意：其中的 # 表示注释，映射关系行首不能有 # ，否者不生效。
 
 **Mac 系统**
 
@@ -84,25 +102,38 @@ C:\Windows\System32\drivers\etc
 
 **Nuxt 框架优势**
 
-- Nuxt 采用了**混合的架构模式**，可以同时支持 SSR 和 SPA。
-
-- 在 Nuxt 中，首次访问页面是 SSR 方式，也就是在服务器端生成 HTML 页面并发送给客户端，但后续的页面切换则使用 SPA 的方式进行，从而兼顾了 SSR 和 SPA 的优点。
+- Nuxt 采用了**混合的架构模式**，同时支持 SSR 和 SPA。
+-  SSR 服务端渲染： 首次访问页面 ，Nuxt.js 在服务器端执行 Vue 组件的渲染过程，并生成初始 HTML。
+- SPA 客户端激活：一旦初始 HTML 被发送到浏览器，Vue.js 会接管页面，后续的页面切换则使用 SPA 的方式进行。
+- Nuxt 框架优势：**兼顾了 SSR 和 SPA 的优点**。
 
 **适用场景**
 
 企业网站、商品展示 等 C 端网站，对 SEO 搜索更友好，且页面切换流畅，用户体验更好。
 
+**开启或关闭服务端渲染**
+
+Nuxt 默认开启 SSR 服务端渲染，推荐开启，从而兼顾了 SSR 和 SPA 的优点，也利于 SEO 搜索引擎优化。
+
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  // 是否开启 ssr 服务端渲染
+  ssr: true,
+})
+```
+
 ## 路由案例
 
 ### 目录结构
 
-我们先来认识 Nuxt 项目的目录结构。
+我们先来认识 Nuxt3 项目的目录结构。
 
 ```sh
 ├─.nuxt              非工程代码，存放运行或发行的编译结果
 ├─node_modules       项目依赖
 ├─public             网站资源目录
-├─server             接口目录
+├─server             接口服务器目录
 ├─.gitignore         git 忽略文件
 ├─.npmrc             npm 配置文件
 ├─app.vue            根组件
@@ -120,13 +151,13 @@ nuxt 有一些**约定的目录**，有特殊功能，如 **pages** 目录的 vu
 ├─ pages             页面目录，自动注册路由
 ```
 
-Nuxt.js 自带路由功能，不需要额外安装和配置，无需安装 **vue-router** 。
+Nuxt.js 自带基于文件的路由系统，无需安装 **vue-router**，无需额外配置。
 
 **参考目录**
 
 ```sh
 ├─ pages                   页面目录，自动注册路由
-│  └─home/index.vue       主页
+│  └─index/index.vue      主页
 │  └─video/index.vue      视频页
 ├─app.vue                  根组件
 ```
@@ -136,15 +167,15 @@ Nuxt.js 自带路由功能，不需要额外安装和配置，无需安装 **vue
 ```vue {3-4,6}
 <template>
   <!-- 路由链接 -->
-  <NuxtLink to="/home">首页</NuxtLink>
+  <NuxtLink to="/">首页</NuxtLink>
   <NuxtLink to="/video">视频页</NuxtLink>
   <!-- 页面路由 -->
   <NuxtPage />
 </template>
 ```
 
-- `<NuxtPage>` 相当于 `<RouterView>`，页面路由
-- `<NuxtLink>` 相当于 `<RouterLink>`，页面跳转
+- 页面路由 `<NuxtPage>` 相当于 `<RouterView>`
+- 页面跳转 `<NuxtLink>` 相当于 `<RouterLink>`
 
 ## 项目实战 - Nuxt 版哔哩哔哩
 
@@ -153,42 +184,37 @@ Nuxt.js 自带路由功能，不需要额外安装和配置，无需安装 **vue
 - [在线体验](https://bilibili.megasu.top/)
 - [参考代码](https://gitee.com/Megasu/nuxt-bilibili)
 
-### 项目收获
-
-- 路由系统
-- SEO 优化
-- Nuxt DevTools
-- 组件库 @vant/nuxt 使用
-- 移动端 vw 适配
-- 组件复用
-- 服务端
-- 项目打包
-
 ## SEO 优化
 
-通过设置网页 title 和 description 等 SEO 优化信息，由服务端渲染。
+通过设置网页 title 和 description 等 SEO 优化信息，由服务端渲染，可提高网页在搜索引擎结果页面中的排名和可见性 。
 
 ```vue
 <script setup lang="ts">
-// SEO 优化
+// SEO 优化信息
 useSeoMeta({
+  // 网站标题
   title: '哔哩哔哩 (゜-゜)つロ 干杯~-bilibili',
+  // 网站描述
   description:
     'bilibili是国内知名的在线视频弹幕网站，拥有最棒的ACG氛围，哔哩哔哩内容丰富多元，涵盖动漫、电影、二次元舞蹈视频、在线音乐、娱乐时尚、科技生活、鬼畜视频等。下载客户端还可离线下载电影、动漫。',
+  // 搜索关键词
   keywords: 'B站,bilibili,哔哩哔哩,哔哩哔哩动画,动漫,电影,在线动漫,高清电影',
-  author: '哔哩哔哩',
 })
 </script>
 ```
+
+参考链接：
 
 - [SEO 和 Meta](https://nuxt.com/docs/getting-started/seo-meta#seo-and-meta)
 
 ## @vant/nuxt 组件库
 
+### 按照和配置
+
 - 安装 nuxt 版 vant-ui
 
 ```sh
-pnpm i @vant/nuxt
+npm i @vant/nuxt
 ```
 
 - 添加配置
@@ -210,14 +236,34 @@ export default defineNuxtConfig({
 <van-button type="info">信息按钮</van-button>
 ```
 
-PS： 在 Nuxt 项目中，vant 组件会自动按需导入（需重启）。
+PS： 在 Nuxt 项目中，vant 组件会自动按需导入（需重启服务）。
+
+### 修改主题色
+
+在 app.vue 的样式全局生效。
+
+```vue
+<style lang="scss">
+/* vant-ui 主题定制 */
+:root {
+  --van-primary-color: #fb7299 !important;
+  --van-back-top-background: #fbfbfb !important;
+  --van-back-top-text-color: #666 !important;
+}
+</style>
+```
+
+**参考链接**
+
+- [vant-nuxt](https://github.com/vant-ui/vant-nuxt)
+- [vant 样式变量](https://vant-ui.github.io/vant/#/zh-CN/config-provider#bian-liang-lie-biao)
 
 ## 项目中的 vw 适配
 
 **安装依赖**
 
 ```sh
-pnpm i postcss-px-to-viewport
+npm i postcss-px-to-viewport -D
 ```
 
 **添加配置**
@@ -242,148 +288,619 @@ export default defineNuxtConfig({
 - [nuxt 配置 - postcss](https://nuxt.com/docs/api/configuration/nuxt-config#postcss)
 - [vant 进阶用法 - postcss](https://vant-ui.github.io/vant/#/zh-CN/advanced-usage#liu-lan-qi-gua-pei)
 
-## 路由配置-自动路由
+## 哔哩哔哩首页
 
-在 pages 目录的 vue 文件会自动注册路由。
+### 素材和样式准备
 
-### 路由中间件
+拷贝素材中的 `assets` 目录项目中，包含项目所需的图片、基础样式、字体图标。
 
-新建 `middleware` 目录，通过 Nuxt 路由中间件实现路由重定向，包括导航守卫等路由功能。
+下载安装 sass 
 
-```ts
-// middleware/router.global.ts
-export default defineNuxtRouteMiddleware((to, from) => {
-  console.log('to', to)
-  console.log('from', from)
-})
+```sh
+npm i sass -D
 ```
 
-**参考链接**
-
-- [路由中间件](https://nuxt.com/docs/getting-started/routing#route-middleware)
-- [导航守卫](https://nuxt.com/docs/api/composables/use-router#navigation-guards)
-
-**修改主题色**
-
-在 app.vue 的样式全局生效。
+项目中导入基础样式和字体图标。
 
 ```vue
 <style lang="scss">
-/* vant-ui 主题定制 */
-:root {
-  --van-primary-color: #fb7299 !important;
-  --van-back-top-background: #fbfbfb !important;
-  --van-back-top-text-color: #666 !important;
-}
+// 基础样式
+@import './assets/styles/base.scss';
+// 字体图标
+@import './assets/styles/iconfont.scss';
 </style>
 ```
 
-**参考链接**
-
-- [vant 样式变量](https://vant-ui.github.io/vant/#/zh-CN/config-provider#bian-liang-lie-biao)
-
-## 注册页
-
-使用组件，在 Nuxt3 中无需导入。
-
-- van-nav-bar
-- van-form
-- van-field
-- van-button
-
 ### 静态结构
-
-register.vue
 
 ```vue
 <script setup lang="ts">
-// 表单数据
-const form = reactive({
-  username: 'itheima',
-  password: '123456',
-})
-
-// 表单提交
-const onSubmit = async () => {
-  //
-}
+//
 </script>
 
 <template>
-  <div class="register-page">
-    <!-- 导航栏部分 -->
-    <van-nav-bar title="面经注册" />
-
-    <!-- 一旦form表单提交了，就会触发submit，可以在submit事件中
-        根据拿到的表单提交信息，发送axios请求
-    -->
-    <van-form @submit="onSubmit">
-      <!-- 输入框组件 -->
-      <!-- \w 字母数字_   \d 数字0-9 -->
-      <van-field
-        v-model="form.username"
-        name="username"
-        label="用户名"
-        placeholder="用户名"
-        :rules="[
-          { required: true, message: '请填写用户名' },
-          { pattern: /^\w{5,}$/, message: '用户名至少包含5个字符' },
-        ]"
-      />
-      <van-field
-        v-model="form.password"
-        type="password"
-        name="password"
-        label="密码"
-        placeholder="密码"
-        :rules="[
-          { required: true, message: '请填写密码' },
-          { pattern: /^\w{6,}$/, message: '密码至少包含6个字符' },
-        ]"
-      />
-      <div style="margin: 16px">
-        <van-button block type="primary" native-type="submit">注册</van-button>
+  <!-- 公共头部 -->
+  <header class="app-header">
+    <NuxtLink class="logo" to="/">
+      <i class="iconfont Navbar_logo"></i>
+    </NuxtLink>
+    <a class="search" href="#">
+      <i class="iconfont ic_search_tab"></i>
+    </a>
+    <a class="face" href="#">
+      <img src="@/assets/images/login.png" />
+    </a>
+    <div class="down-app">下载 APP</div>
+  </header>
+  <!-- 频道模块 -->
+  <van-tabs>
+    <van-tab v-for="item in 10" :key="item" title="频道" />
+  </van-tabs>
+  <!-- 视频列表 -->
+  <div class="video-list">
+    <NuxtLink class="v-card" v-for="item in 20" :key="item" :to="`/video/0`">
+      <div class="card">
+        <div class="card-img">
+          <img
+            class="pic"
+            src="@/assets/images/loading.png"
+            alt="当你觉得扛不住的时候来看看这段视频"
+          />
+        </div>
+        <div class="count">
+          <span>
+            <i class="iconfont icon_shipin_bofangshu"></i>
+            676.2万
+          </span>
+          <span>
+            <i class="iconfont icon_shipin_danmushu"></i>
+            1.6万
+          </span>
+        </div>
       </div>
-    </van-form>
-    <NuxtLink class="link" to="/login">已注册,去登录</NuxtLink>
+      <p class="title">当你觉得扛不住的时候来看看这段视频</p>
+    </NuxtLink>
   </div>
 </template>
 
-<style scoped>
-.link {
-  color: #069;
-  font-size: 12px;
-  padding-right: 20px;
-  float: right;
+<style lang="scss">
+// 公共头部
+.app-header {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  background-color: #fff;
+  .logo {
+    flex: 1;
+    .Navbar_logo {
+      color: #fb7299;
+      font-size: 28px;
+    }
+  }
+  .search {
+    padding: 0 8px;
+    .ic_search_tab {
+      color: #ccc;
+      font-size: 22px;
+    }
+  }
+  .face {
+    padding: 0 15px;
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  .down-app {
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fb7299;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px 10px;
+  }
+}
+
+// 视频列表
+.video-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 5px;
+}
+
+// 视频卡片
+.v-card {
+  width: 50%;
+  padding: 0 5px 10px;
+  .card {
+    position: relative;
+    background: #f3f3f3 url(@/assets/images/default.png) center no-repeat;
+    background-size: 36%;
+    border-radius: 2px;
+    overflow: hidden;
+    .card-img {
+      .pic {
+        height: 100px;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    .count {
+      background-image: linear-gradient(0deg, #000000d9, #0000);
+      color: #fff;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 6px;
+      span {
+        .iconfont {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  .title {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #212121;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
 }
 </style>
 ```
 
-## 请求封装
+### 组件封装
 
-```sh
+基于首页的静态结构，抽离到 `components` 目录。
 
-```
+- **头部组件** `components/AppHeader.vue`
 
-```ts
+- **视频组件** `components/AppVideo.vue`
 
-```
+抽离到  `components` 目录的组件可自动导入，在首页、视频详情页中直接使用即可，页面也变得更简洁。
 
-```vue {2,12-17}
-
+```vue
+<template>
+  <!-- 公共头部 -->
+  <AppHeader />
+  <!-- 频道模块 -->
+  <van-tabs>
+    <van-tab v-for="item in 10" :key="item" title="频道" />
+  </van-tabs>
+  <!-- 视频列表 -->
+  <div class="video-list">
+    <AppVideo v-for="item in 20" :key="item" />
+  </div>
+</template>
 ```
 
 **参考链接**
 
+- [components 目录](https://nuxt.com/docs/guide/directory-structure/components)
+
+## 接口服务器
+
+Nuxt 支持在 `server` 目录写服务器接口，用于数据请求。
+
+为了让大家更好地了解 Nuxt 接口服务器，我们仅提供了静态数据，但这个 `server` 目录可以用于对接数据库等更复杂的操作。这样，您可以通过编写自定义的服务器接口来满足项目的需求。 
+
+### 频道接口
+
+**静态数据**
+
+ `database/chnnel.ts`
+
+```ts
+// 频道列表
+export default [
+  { id: 1, name: '首页' },
+  { id: 2, name: '动画' },
+  { id: 3, name: '番剧' },
+  { id: 4, name: '国创' },
+  { id: 5, name: '音乐' },
+  { id: 6, name: '舞蹈' },
+  { id: 7, name: '游戏' },
+  { id: 8, name: '知识' },
+  { id: 9, name: '科技' },
+  { id: 10, name: '运动' },
+  { id: 11, name: '汽车' },
+  { id: 12, name: '生活' },
+  { id: 13, name: '美食' },
+  { id: 14, name: '动物圈' },
+  { id: 15, name: '鬼畜' },
+  { id: 16, name: '时尚' },
+  { id: 17, name: '娱乐' },
+  { id: 18, name: '影视' },
+  { id: 19, name: '纪录片' },
+  { id: 20, name: '电影' },
+  { id: 21, name: '电视剧' },
+  { id: 22, name: '直播' },
+  { id: 23, name: '相簿' },
+  { id: 24, name: '课堂' },
+]
+```
+
+**频道接口**
+
+**Nuxt 基于文件生成接口**，在 `server` 目录下的 `/api/channel.get.ts`，会自动生成接口 `/api/channel`，请求方式为 `get`。
+
+```ts
+import chnnel from '@/database/chnnel'
+
+export default defineEventHandler(() => {
+  return chnnel
+})
+```
+
+可通过 http://localhost:3000/api/channel 访问以上频道接口， 文件名的后缀可以是 `.get`, `.post`, `.put`, `.delete` 等，以匹配请求的 HTTP 方法 。
+
+参考资料：
+
+- [server 目录](https://nuxt.com/docs/guide/directory-structure/server)
+
+### 渲染频道列表
+
+- 通过 useFetch 发送请求
+
+获取频道列表数据
+
+`index/index.vue`
+
+```jsx
+// 获取频道列表
+const { data: channelList } = await useFetch('/api/channel')
+```
+
+渲染数据
+
+```diff
+<!-- 频道列表 -->
+<van-tabs>
+-    <van-tab v-for="item in 10" :key="item" title="频道" />
++    <van-tab v-for="item in channelList" :key="item.id" :title="item.name" />
+</van-tabs>
+```
+
+### 视频列表接口
+
+**静态数据**
+
+ `database/video.ts`
+
+```ts
+// 视频列表
+export default [
+  {
+    aid: 701297313,
+    type_id: 182,
+    tname: '影视杂谈',
+    pic: 'http://i0.hdslb.com/bfs/archive/4e0981141ac047f06118a30f4af322d45f4ce63c.jpg',
+    title: '一口气看完美剧大片《星期三》完整版',
+    pubdate: 1690181679,
+    ctime: 1690181679,
+    tags: [],
+    duration: 2208,
+    author: {
+      mid: 1446209135,
+      name: '番茄君来了',
+      face: 'https://i2.hdslb.com/bfs/face/0db953a00ded43b1eec3539b99cd63294ead1283.jpg',
+    },
+    stat: {
+      aid: 701297313,
+      view: 362915,
+      danmaku: 392,
+      reply: 171,
+      favorite: 3905,
+      coin: 643,
+      share: 182,
+      now_rank: 0,
+      his_rank: 0,
+      like: 12383,
+      dislike: 0,
+      vt: 0,
+      vv: 362915,
+    },
+    hot_desc: '',
+    corner_mark: 0,
+    bvid: 'BV1Hm4y1L74g',
+    enable_vt: 0,
+  },
+  {
+    aid: 361335669,
+    type_id: 209,
+    tname: '职业职场',
+    pic: 'http://i1.hdslb.com/bfs/archive/21f4e73f650570cf7e6471db5dfd0dc2775d8953.jpg',
+    title: '弃船时，船长应该最后一个离船吗？',
+    pubdate: 1690193700,
+    ctime: 1690172170,
+    tags: [],
+    duration: 912,
+    author: {
+      mid: 517450185,
+      name: '西曼船长Seaman',
+      face: 'https://i0.hdslb.com/bfs/face/a96ee6c01b4beb8ce39d6b82c2bb4bae7b89da76.jpg',
+    },
+    stat: {
+      aid: 361335669,
+      view: 469788,
+      danmaku: 1069,
+      reply: 740,
+      favorite: 2042,
+      coin: 1713,
+      share: 213,
+      now_rank: 0,
+      his_rank: 0,
+      like: 21576,
+      dislike: 0,
+      vt: 0,
+      vv: 469788,
+    },
+    hot_desc: '',
+    corner_mark: 0,
+    bvid: 'BV1894y1v78s',
+    enable_vt: 0,
+  },
+  // ... 省略
+]
+```
+
+**视频列表接口**
+
+`server/api/video/index.get.ts`
+
+```ts
+// get  /api/video
+import video from '@/database/video'
+
+export default defineEventHandler(() => {
+  return video
+})
+```
+
+### 动态渲染视频
+
+获取视频列表数据
+
+`index/index.vue`
+
+```ts
+// 获取视频列表数据
+const { data: videoList } = await useFetch('/api/video')
+```
+
+v-for 循环展示
+
+```diff
+<!-- 视频列表 -->
+<div class="video-list">
+  <NuxtLink
+    class="v-card"
++    v-for="item in videoList"
++    :key="item.aid"
+    :to="`/video`"
+  >
+    <div class="card">
+      <div class="card-img">
++        <img class="pic" :src="item.pic" :alt="item.title" />
+      </div>
+      <div class="count">
+        <span>
+          <i class="iconfont icon_shipin_bofangshu"></i>
++          {{ item.stat.view }}
+        </span>
+        <span>
+          <i class="iconfont icon_shipin_danmushu"></i>
++          {{ item.stat.danmaku }}
+        </span>
+      </div>
+    </div>
++    <p class="title">{{ item.title }}</p>
+  </NuxtLink>
+</div>
+```
+
+
+
+参考链接：
+
 - [utils 目录](https://nuxt.com/docs/guide/directory-structure/utils)
 
-## 登录页
+## 分页加载
 
-登录页逻辑参考注册页。
+### 分页组件
 
-### 静态结构
+通过 [vant-list 列表](https://vant-contrib.gitee.io/vant/#/zh-CN/list) 实现滚动触底，加载分页数据。
 
-login.vue
+```diff
+  <!-- 视频列表 -->
++  <van-list
++    v-model:loading="loading"
++    :finished="finished"
++    finished-text="去 bilibili App 看更多"
++    @load="onLoad"
++  >
+    <div class="video-list">
+      ...省略
+    </div>
++  </van-list>
+```
+
+滚动触底，触发 onLoad 事件，加载完成，处理 finished 结束。
+
+```jsx
+// 显示的列表
+const list = ref<any[]>([])
+// 加载状态
+const loading = ref(false)
+// 是否加载完成
+const finished = ref(false)
+
+// 页码 和 页容量
+let page = 1
+let pageSize = 20
+
+// 滚动触底触发
+const onLoad = () => {
+  // 表示正在加载
+  loading.value = false
+  // 根据当前页码提取数据
+  const data = videoList.value?.slice(
+    (page - 1) * pageSize,
+    page * pageSize,
+  ) as any[]
+  // 追加到用于渲染的数组中
+  list.value.push(...data)
+  // 页码累加
+  page++
+  // 加载结束
+  if (videoList.value?.length === list.value.length) {
+    finished.value = true
+  }
+}
+
+// 初始化加载 - 主动请求前 20 条数据，用于服务端首屏渲染，方便 SEO 抓取到数据
+onLoad()
+```
+
+### 类型处理
+
+指定正确的 TypeScript 类型可以让项目更安全，在 VS Code 中可通过 `json2ts` 插件，快速基于 JSON 生成 TS 类型声明文件。
+
+**类型声明文件**
+
+`types/video.d.ts`
+
+```ts
+export interface Author {
+  mid: number
+  name: string
+  face: string
+}
+
+export interface Stat {
+  aid: number
+  view: number
+  danmaku: number
+  reply: number
+  favorite: number
+  coin: number
+  share: number
+  now_rank: number
+  his_rank: number
+  like: number
+  dislike: number
+  vt: number
+  vv: number
+}
+
+export interface VideoItem {
+  aid: number
+  type_id: number
+  tname: string
+  pic: string
+  title: string
+  pubdate: number
+  ctime: number
+  tags: any[]
+  duration: number
+  author: Author
+  stat: Stat
+  hot_desc: string
+  corner_mark: number
+  bvid: string
+  enable_vt: number
+}
+```
+
+**类型升级**
+
+```diff
+// 导入类型
++  import type { VideoItem } from '@/types/video'
+
+// 显示的列表 - 指定类型
+-  const list = ref<any[]>([])
++  const list = ref<VideoItem[]>([])
+
+// 滚动触底触发
+const onLoad = () => {
+  // 根据当前页码提取数据
+-  const data = videoList.value?.slice((page - 1) * pageSize,page * pageSize) as any[]
++  const data = videoList.value?.slice((page - 1) * pageSize,page * pageSize) as VideoItem[]
+}
+```
+
+## 视频详情-动态路由传参
+
+### 跳转路由传参
+
+修改面经详情的目录结构
+
+```jsx
+pages/video/index.vue  =>   pages/video/[id].vue
+
+其中 [id].vue  表示动态路由
+```
+
+点击跳转 `video/index.vue`
+
+```diff
+  <NuxtLink
+    class="v-card"
+    v-for="item in list"
+    :key="item.aid"
+-    :to="`/video`"
++    :to="`/video/${item.bvid}`"
+  >
+    ...
+  </NuxtLink>
+```
+
+页面中获取参数
+
+```vue
+<script setup lang="ts">
+const { params } = useRoute()
+
+console.log('动态路由id', params.id)
+</script>
+
+<template>
+  <h2>视频页 {{ $route.params.id }}</h2>
+</template>
+```
+
+### 视频详情接口
+
+`server/api/video/[id].get.ts`
+
+```ts
+// get /api/video/id
+import video from '@/database/video'
+
+export default defineEventHandler((event) => {
+  // 获取路由参数
+  const { id } = event.context.params || {}
+
+  // 根据 id 查找视频
+  return video.find((v) => v.bvid === id)
+})
+```
+
+### 代码实现
+
+`pages/video/[id].vue`
 
 ```vue
 <script setup lang="ts">
@@ -411,9 +928,11 @@ const onPause = () => {
 }
 
 // 通过路由参数获取视频id
-const route = useRoute()
-const { data: detail } = await useFetch(`/api/hot/${route.params.id}`)
-const { data: relateList } = await useFetch(`/api/relate`)
+const { params } = useRoute()
+const { data: detail } = await useFetch(`/api/hot/${params.id}`)
+
+// 获取视频列表数据
+const { data: videoList } = await useFetch('/api/video')
 
 // 动态设置标题
 useSeoMeta({
@@ -454,7 +973,7 @@ useSeoMeta({
   <div class="relate">
     <h3 class="relate-title">相关推荐</h3>
     <div class="relate-list">
-      <AppVideo v-for="item in relateList" :key="item.aid" :item="item" />
+      <AppVideo v-for="item in videoList" :key="item.aid" :item="item" />
     </div>
   </div>
 </template>
@@ -517,392 +1036,9 @@ useSeoMeta({
 </style>
 ```
 
-## 路由鉴权-导航守卫
-
-Nuxt 有路由中间件，简化了导航守卫的实现。
-
-```ts {10-13}
-// 白名单列表，记录无需权限访问的所有页面
-const whiteList = ['/login', '/register']
-
-export default defineNuxtRouteMiddleware((to, from) => {
-  // 首页重定向
-  if (to.path === '/') {
-    return navigateTo('/article')
-  }
-  // 获取 token
-  const token = getToken()
-  if (!token && !whiteList.includes(to.path)) {
-    return navigateTo('/login')
-  }
-})
-```
-
-**参考链接**
-
-- [导航守卫](https://nuxt.com/docs/api/composables/use-router#navigation-guards)
-
-## 视频列表-动态渲染列表
-
-- 通过 useFetch 发送请求 - 推荐
-
-`article.vue`
-
-存储数据
-
-```jsx
-<script setup lang="ts">
-const list = ref<ArticleItem[]>([])
-
-const pageParams = reactive({
-  current: 40,
-  sorter: 'weight_desc',
-  pageSize: 10,
-})
-
-const getList = async () => {
-  // 获取数据
-  const { data } = await useFetch<any>('/interview/query', {
-    baseURL: 'http://interview-api-t.itheima.net/h5/',
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-    },
-    params: pageParams,
-  })
-  // 列表追加
-  list.value.push(...data.value.data.rows)
-}
-
-getList()
-</script>
-```
-
-类型声明
-
-```ts
-
-```
-
-v-for 循环展示
-
-```jsx
-
-```
-
-子组件接收渲染
-
-```vue
-<script setup lang="ts">
-import type { ArticleItem } from 'types/article'
-
-defineProps<{
-  item: ArticleItem
-}>()
-</script>
-
-<template>
-  <van-cell class="article-item" @click="navigateTo(`/detail/${item.id}`)">
-    <template #title>
-      <div class="head">
-        <img :src="item.avatar" alt="" />
-        <div class="con">
-          <p class="title van-ellipsis">{{ item.stem }}</p>
-          <p class="other">{{ item.creator }} | {{ item.createdAt }}</p>
-        </div>
-      </div>
-    </template>
-    <template #label>
-      <div class="body van-multi-ellipsis--l2" v-html="item.content"></div>
-      <div class="foot">点赞 {{ item.likeCount }} | 浏览 {{ item.views }}</div>
-    </template>
-  </van-cell>
-</template>
-
-<style lang="less" scoped>
-.article-item {
-  .head {
-    display: flex;
-    img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      overflow: hidden;
-    }
-    .con {
-      flex: 1;
-      overflow: hidden;
-      padding-left: 10px;
-      p {
-        margin: 0;
-        line-height: 1.5;
-        &.title {
-          width: 280px;
-        }
-        &.other {
-          font-size: 10px;
-          color: #999;
-        }
-      }
-    }
-  }
-  .body {
-    font-size: 14px;
-    color: #666;
-    line-height: 1.6;
-    margin-top: 10px;
-  }
-  .foot {
-    font-size: 12px;
-    color: #999;
-    margin-top: 10px;
-  }
-}
-</style>
-```
-
-## 首页-分页加载更多
-
-[vant-list 列表](https://vant-contrib.gitee.io/vant/#/zh-CN/list)
-
-```jsx
-<van-list
-  v-model:loading="loading"
-  :finished="finished"
-  finished-text="没有更多了"
-  @load="getList"
->
-  <ArticleItemCom v-for="item in list" :key="item.id" :item="item" />
-</van-list>
-```
-
-加载完成，重置 loading, 累加数据，处理 finished
-
-```jsx
-import type { VideoItem } from 'types/video'
-
-// 获取频道列表
-const { data: channelList } = await useFetch('/api/channel')
-// 获取热门视频列表
-const { data: hotList } = await useFetch('/api/hot')
-
-// 视频列表-分页
-const list = ref<VideoItem[]>([])
-const loading = ref(false)
-const finished = ref(false)
-
-// 页码
-let page = 1
-// 加载更多
-const onLoad = async () => {
-  // 加载状态开始
-  loading.value = true
-  // 根据页码截取数据
-  const slice = hotList.value?.slice((page - 1) * 10, page * 10) as VideoItem[]
-  // 追加到渲染列表中
-  list.value.push(...slice)
-  // 页码 +1
-  page++
-  // 加载状态结束
-  loading.value = false
-  // 数据加载完毕
-  if (list.value.length === hotList.value?.length) {
-    finished.value = true
-  }
-}
-
-// 服务端渲染
-onLoad()
-```
-
-## 视频详情-动态路由传参
-
-### 跳转路由传参
-
-修改面经详情的目录结构
-
-```jsx
-pages/video/index.vue  =>   pages/video/[id].vue
-
-其中 [id].vue  表示动态路由
-```
-
-点击跳转 `article.vue`
-
-```jsx
-<template>
-  <!-- 文章区域 -->
-  <van-cell class="article-item" @click="navigateTo(`/detail/${item.id}`)">
-    <template #title>
-      ...
-    </template>
-    <template #label>
-      ...
-    </template>
-  </van-cell>
-</template>
-```
-
-页面中获取参数
-
-```jsx
-// 获取页面参数
-const { params } = useRoute()
-console.log(params)
-```
-
-### 静态结构
-
-```jsx
-<script setup lang="ts">
-//
-</script>
-
-<template>
-  <div class="detail-page">
-    <van-nav-bar
-      left-text="返回"
-      @click-left="$router.back()"
-      fixed
-      title="面经详情"
-    />
-    <header class="header">
-      <h1>大标题</h1>
-      <p>
-        2050-04-06 | 300 浏览量 | 222 点赞数
-      </p>
-      <p>
-        <img src="头像" alt="" />
-        <span>作者</span>
-      </p>
-    </header>
-    <main class="body">
-      <p>我是内容</p>
-      <p>我是内容</p>
-      <p>我是内容</p>
-      <p>我是内容</p>
-    </main>
-    <div class="opt">
-      <van-icon class="active" name="like-o"/>
-      <van-icon name="star-o"/>
-    </div>
-  </div>
-</template>
-
-<style lang="less" scoped>
-.detail-page {
-  margin-top: 44px;
-  overflow: hidden;
-  padding: 0 15px;
-  .header {
-    h1 {
-      font-size: 24px;
-    }
-    p {
-      color: #999;
-      font-size: 12px;
-      display: flex;
-      align-items: center;
-    }
-    img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      overflow: hidden;
-    }
-  }
-  .opt {
-    position: fixed;
-    bottom: 100px;
-    right: 0;
-    > .van-icon {
-      margin-right: 20px;
-      background: #fff;
-      width: 40px;
-      height: 40px;
-      line-height: 40px;
-      text-align: center;
-      border-radius: 50%;
-      box-shadow: 2px 2px 10px #ccc;
-      font-size: 18px;
-      &.active {
-        background: #FEC635;
-        color: #fff;
-      }
-    }
-  }
-}
-</style>
-
-```
-
-### 代码实现
-
-`detail.vue`
-
-```jsx
-<script setup lang="ts">
-
-</script>
-
-<template>
-  <div class="detail-page">
-    <van-nav-bar
-      left-text="返回"
-      @click-left="$router.back()"
-      fixed
-      title="面经详细"
-    />
-    <header class="header">
-      <h1>{{ article.stem }}</h1>
-      <p>
-        {{ article.createdAt }} | {{ article.views }} 浏览量 |
-        {{ article.likeCount }} 点赞数
-      </p>
-      <p>
-        <img :src="article.avatar" alt="" />
-        <span>{{ article.creator }}</span>
-      </p>
-    </header>
-    <main class="body" v-html="article.content"></main>
-    <div class="opt">
-      <van-icon :class="{active:article.likeFlag}" name="like-o"/>
-      <van-icon :class="{active:article.collectFlag}" name="star-o"/>
-    </div>
-  </div>
-</template>
-```
-
-**类型声明**
-
-```ts
-/** * 面经详情 */
-export type ArticleDetail = {
-  /** 头像 */
-  avatar?: string
-  /** 浏览量 */
-  collectFlag?: number
-  /** 面经内容 */
-  content?: string
-  /** 创建时间 */
-  createdAt?: string
-  /** 创建人 */
-  creator?: string
-  /** 主键id */
-  id?: string
-  /** 点赞量 */
-  likeCount?: number
-  /** 浏览量 */
-  likeFlag?: number
-  /** 面经标题 */
-  stem?: string
-  /** 浏览量 */
-  views?: number
-}
-```
-
 ## 页面缓存
 
-没有做页面缓存的话，切换页面时会重新发送请求，用户体验不佳，可通过 keepalive 优化体验。
+没有做页面缓存的话，切换页面时会重新发送请求，用户体验不友好，开启 keepalive 优化体验。
 
 ```vue
 <template>
@@ -944,3 +1080,5 @@ pnpm generate
 
 - 部署公司的服务器
 - 部署到第三方平台，如：[vercel (免费)](https://vercel.com)
+
+<img src="./README/qrcode.png" width="200" />
